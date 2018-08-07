@@ -7,15 +7,25 @@ from threading import Thread
 from tkinter import filedialog
 from ctypes import windll
 
-
 def is_picture(counter):
     im = Image.open('temp/scrapping/image' + str(counter) + '.png')
     rgb_im = im.convert('RGB')
-    r, g, b = rgb_im.getpixel((2000, 1300))
+    #r, g, b = rgb_im.getpixel((2000, 1300))
+    width, height = rgb_im.size
+    r, g, b = rgb_im.getpixel((width // 2, height // 2))
     if r == 255 and g == 255 and b == 255:
         return False
     else:
         return True
+
+def is_coverall(counter):
+    im = Image.open('temp/scrapping/image' + str(counter) + '.png')
+    rgb_im = im.convert('RGB')
+    r, g, b = rgb_im.getpixel((1, 1))
+    if (r == 255 and g == 255 and b == 255) or counter == 0:#There is a white pixel near the edge
+        return True
+    else:
+        return False
 
 
 def is_same(counter):
@@ -82,10 +92,14 @@ def do_scrapping(url):
 
     lbl.config(text='2/3: Scrapping: starting webdriver... [it takes several seconds]')
     options = webdriver.ChromeOptions()
+    options.add_argument('--disable-extensions')
     options.add_argument('--headless')
     options.add_argument('--disable-gpu')
+    options.add_argument('--no-sandbox')
+    options.add_argument('--incognito')
+    options.add_argument('--disable-application-cache')
     driver = webdriver.Chrome(executable_path=r"chromedriver.exe", chrome_options=options)
-    driver.set_window_size(4000, 4000)
+    driver.set_window_size(7000, 7000)
     driver.get(url)
     xPath3 = r".//html/body/div[3]/div[3]/div/div/div/div[3]/div"  # img xPath
     xPath2 = r".//html/body/div[3]/div[3]/div/div/div[2]/div[1]/div[2]/div[1]/div"  # zoom xPath
@@ -127,15 +141,19 @@ def do_scrapping(url):
             driver.execute_script("arguments[0].click();", elem3)
             t.sleep(3)
             image_appeared = False
-            image_zoom_taked = True
+            #image_zoom_taked = True
         else:
             lbl.config(text='2/3: Scrapping: %sth attempt, waiting for the image...' % str(i+1))
         lbl.config(text='2/3: Scrapping: %sth attempt, taking snapshot' % str(i+1))
         driver.save_screenshot('temp/scrapping/image%s.png' % str(i))
         lbl.config(text='2/3: Scrapping: %sth attempt, checking progress...' % str(i+1))
 
-        if is_picture(i) and not image_zoom_taked:
+        #if is_picture(i) and not image_zoom_taked:
+        if not image_zoom_taked and is_coverall(i):
             image_appeared = True
+        if not is_coverall(i):
+            last_file = 'temp/scrapping/image%s.png' % str(i-1)
+            break
         if is_same(i):
             last_file = 'temp/scrapping/image%s.png' % str(i)
             break
@@ -207,12 +225,15 @@ def paste():
 
 root = tk.Tk()
 root.title('Google Art Downloader 0.1.2 beta')
-windll.shcore.SetProcessDpiAwareness(1)
+#windll.shcore.SetProcessDpiAwareness(1)
 root.resizable(0, 0)
 
 entryText = tk.StringVar()
 ent = tk.Entry(root, width=77, textvariable=entryText)
-entryText.set(r"https://artsandculture.google.com/asset/the-starry-night/bgEuwDxel93-Pg")
+#entryText.set(r"https://artsandculture.google.com/asset/the-starry-night/bgEuwDxel93-Pg")
+entryText.set(r"https://artsandculture.google.com/asset/the-birth-of-venus/MQEeq50LABEBVg")
+#entryText.set(r"https://artsandculture.google.com/asset/the-underwave-off-kanagawa/JgEdIdn4pME3Mw")
+
 lbl = tk.Label(root, width=80)
 btn = tk.Button(root, text="Download", command=start)
 btnPaste = tk.Button(root, text="Paste url", command=paste)
