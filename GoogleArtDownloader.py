@@ -105,7 +105,7 @@ def do_scrapping(url):
     xPath2 = r".//html/body/div[3]/div[3]/div/div/div[2]/div[1]/div[2]/div[1]/div"  # zoom xPath
     xPath1 = r".//html/body/div[3]/div[3]/div/div/div[3]/div/content/span"  # open img xPath
     image_appeared = False  # flag for starting click on image
-    image_zoom_taked = False
+    image_zoom_taked = 0 #counter for times of zooming
     last_file = ''  # last succeed file
     lbl.config(text='2/3: Scrapping: waiting for response')
     driver.implicitly_wait(1)
@@ -141,7 +141,7 @@ def do_scrapping(url):
             driver.execute_script("arguments[0].click();", elem3)
             t.sleep(3)
             image_appeared = False
-            #image_zoom_taked = True
+            image_zoom_taked = i
         else:
             lbl.config(text='2/3: Scrapping: %sth attempt, waiting for the image...' % str(i+1))
         lbl.config(text='2/3: Scrapping: %sth attempt, taking snapshot' % str(i+1))
@@ -149,7 +149,7 @@ def do_scrapping(url):
         lbl.config(text='2/3: Scrapping: %sth attempt, checking progress...' % str(i+1))
 
         #if is_picture(i) and not image_zoom_taked:
-        if not image_zoom_taked and is_coverall(i):
+        if (image_zoom_taked < 2) and is_coverall(i):
             image_appeared = True
         if not is_coverall(i):
             last_file = 'temp/scrapping/image%s.png' % str(i-1)
@@ -224,7 +224,7 @@ def paste():
 
 
 root = tk.Tk()
-root.title('Google Art Downloader 0.1.2 beta')
+root.title('Google Art Downloader 0.1.3 beta')
 #windll.shcore.SetProcessDpiAwareness(1)
 root.resizable(0, 0)
 
