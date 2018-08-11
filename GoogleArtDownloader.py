@@ -98,8 +98,10 @@ def do_scrapping(url):
     options.add_argument('--no-sandbox')
     options.add_argument('--incognito')
     options.add_argument('--disable-application-cache')
+    options.add_argument('--max-old-space-size=12288')
     driver = webdriver.Chrome(executable_path=r"chromedriver.exe", chrome_options=options)
-    driver.set_window_size(8000, 8000)
+    driver.set_window_size(16000, 16000)
+    Image.MAX_IMAGE_PIXELS = 1600 * 1600 * 10 * 10
     driver.get(url)
     xPath3 = r".//html/body/div[3]/div[3]/div/div/div/div[3]/div"  # img xPath
     xPath2 = r".//html/body/div[3]/div[3]/div/div/div[2]/div[1]/div[2]/div[1]/div"  # zoom xPath
@@ -149,7 +151,7 @@ def do_scrapping(url):
         lbl.config(text='2/3: Scrapping: %sth attempt, checking progress...' % str(i+1))
 
         #if is_picture(i) and not image_zoom_taked:
-        if (image_zoom_taked < 2) and is_coverall(i):
+        if (image_zoom_taked < 3) and is_coverall(i):
             image_appeared = True
         if not is_coverall(i):
             last_file = 'temp/scrapping/image%s.png' % str(i-1)
