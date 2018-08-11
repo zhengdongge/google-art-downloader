@@ -99,7 +99,7 @@ def do_scrapping(url):
     options.add_argument('--incognito')
     options.add_argument('--disable-application-cache')
     driver = webdriver.Chrome(executable_path=r"chromedriver.exe", chrome_options=options)
-    driver.set_window_size(7000, 7000)
+    driver.set_window_size(8000, 8000)
     driver.get(url)
     xPath3 = r".//html/body/div[3]/div[3]/div/div/div/div[3]/div"  # img xPath
     xPath2 = r".//html/body/div[3]/div[3]/div/div/div[2]/div[1]/div[2]/div[1]/div"  # zoom xPath
