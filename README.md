@@ -1,5 +1,5 @@
  # Google Art Downloader beta v0.1.3-beta
-This utility is from https://github.com/mewforest/google-art-downloader/, allows you to save all of the images from [Google Art Project](https://artsandculture.google.com) in high quality, and i change the resolution up to 7K (need at least 16gb of RAM, no higher resolution due to Selenium limit of 12k and only 14k make sense of improvement). 
+This utility is from https://github.com/mewforest/google-art-downloader/, allows you to save all of the images from [Google Art Project](https://artsandculture.google.com) in high quality, and i change the resolution up to 8K (need at least 16gb of RAM, no higher resolution due to Selenium limit of 12k and only 16k make sense of improvement). 
 
 ## Using utility（not update）
 Just download [google-art-downloader.zip](https://github.com/mewforest/google-art-downloader/releases/download/v0.1.2-beta/google-art-downloader-0-1-2.zip) from [releases](https://github.com/mewforest/google-art-downloader/releases), unzip it to any folder and run **google-art-downloader.exe**. Then insert link to the text field using `CTRL+V` or button **"Paste url"** (yes, you can delete example link), click **"Download"** and wait until the image is ready.
