@@ -98,7 +98,9 @@ def do_scrapping(url):
     options.add_argument('--no-sandbox')
     options.add_argument('--incognito')
     options.add_argument('--disable-application-cache')
-    options.add_argument('--max-old-space-size=12288')
+    #options.add_argument('--enable-precise-memory-info')
+    #options.add_argument('--full-memory-crash-report')
+    #options.add_argument('--memory-pressure-thresholds-mb=1024')
     driver = webdriver.Chrome(executable_path=r"chromedriver.exe", chrome_options=options)
     driver.set_window_size(16000, 16000)
     Image.MAX_IMAGE_PIXELS = 1600 * 1600 * 10 * 10
