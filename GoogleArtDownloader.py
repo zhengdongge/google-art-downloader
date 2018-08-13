@@ -5,7 +5,7 @@ from PIL import Image, ImageChops
 import tkinter as tk
 from threading import Thread
 from tkinter import filedialog
-from ctypes import windll
+#from ctypes import windll
 
 def is_picture(counter):
     im = Image.open('temp/scrapping/image' + str(counter) + '.png')
@@ -101,8 +101,9 @@ def do_scrapping(url):
     #options.add_argument('--enable-precise-memory-info')
     #options.add_argument('--full-memory-crash-report')
     #options.add_argument('--memory-pressure-thresholds-mb=1024')
-    driver = webdriver.Chrome(executable_path=r"chromedriver.exe", chrome_options=options)
-    driver.set_window_size(16000, 16000)
+    #driver = webdriver.Chrome(executable_path=r"chromedriver.exe", chrome_options=options)
+    driver = webdriver.Chrome(executable_path='./chromedriver', chrome_options=options)
+    driver.set_window_size(14000, 14000)
     Image.MAX_IMAGE_PIXELS = 1600 * 1600 * 10 * 10
     driver.get(url)
     xPath3 = r".//html/body/div[3]/div[3]/div/div/div/div[3]/div"  # img xPath

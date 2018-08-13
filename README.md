@@ -9,7 +9,7 @@ Just download [google-art-downloader.zip](https://github.com/mewforest/google-ar
 ## Dependencies
 Compiled release requires just connection to Internet.
 
-Source code has written in Python 3.6 and has the following dependencies: Selenium, PIL and added chromedriver.exe to PATH.
+Source code has written in Python 3.6 and has the following dependencies: Selenium, PIL(Pillow) and added chromedriver.exe to PATH.
 
 ## Problems
 In old release elongated vertical images had cropped incorrectly, now you can fix it with option "Check this, if your image cropped wrongly". Unfortunately with this options quality may deteriorate. Sometimes this option causes artifacts on the image, I haven't uderstanding why.
